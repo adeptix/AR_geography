@@ -7,4 +7,4 @@
 <br>
 <br>
 
-![Иконка приложения - кубическая Земля](docs/readme_earth.jpg)
+<img src="docs/readme_earth.jpg" alt="Иконка приложения - кубическая Земля" width="400"/>
