@@ -27,6 +27,7 @@ public class SceneSingleton
     {
         if (Instance.sceneHistory.Count == 0)
         {
+            Application.Quit();
             return;
         }
 

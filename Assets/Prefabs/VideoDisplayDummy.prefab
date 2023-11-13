@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8303766758202259914}
   m_Layer: 0
-  m_Name: Virtual_Display
+  m_Name: VideoDisplayDummy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

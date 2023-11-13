@@ -1,0 +1,40 @@
+{
+  "infoRaws": [
+    {
+      "id": 1,
+      "name": "Земля",
+	  "population": "8,07 миллиарда",
+      "text": "lorem ipsum",
+      "videoName": "",
+	  "flagName" : "",
+	  "anthemName": "",
+	  "images" : [
+		"earth"
+	  ]
+    },
+	{
+      "id": 2,
+      "name": "США",
+	  "population": "8,07 миллиарда",
+      "text": "lorem ipsum",
+      "videoName": "",
+	  "flagName" : "",
+	  "anthemName": "",
+	  "images" : [
+		"earth"
+	  ]
+    },
+	{
+      "id": 3,
+      "name": "Земля",
+	  "population": "8,07 миллиарда",
+      "text": "lorem ipsum",
+      "videoName": "",
+	  "flagName" : "",
+	  "anthemName": "",
+	  "images" : [
+		"earth"
+	  ]
+    }
+  ]
+}
