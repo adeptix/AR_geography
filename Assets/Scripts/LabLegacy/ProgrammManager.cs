@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +29,6 @@ public class ProgrammManager : MonoBehaviour
 
     // -------------- ROTATION --------------------
     public bool Rotation;
-    private Quaternion YRotation;
 
     // -------------- COMMUNICATION --------------------
     public bool Communication;
@@ -68,12 +68,33 @@ public class ProgrammManager : MonoBehaviour
             {
                 Ray ray = ARCamera.ScreenPointToRay(touch.position);
 
+                Debuger.Log("touch begin");
+
                 if (Physics.Raycast(ray, out RaycastHit hitObject))
                 {
                     if (hitObject.collider.gameObject.TryGetComponent(out OneEarthManager m))
                     {
-                        if (Moving || Rotation) m.Select();      // SELECT OBJECT FOR MOVE / ROTATE
-                        if (Communication) m.TogglePanels();
+
+                        Debuger.Log("OneEarthManager touch");
+                        if (Moving)
+                        {
+                            m.Select(true);     // SELECT OBJECT FOR MOVE
+                        }
+                        else if (Rotation)
+                        {
+                            m.Select(false);    // SELECT OBJECT FOR ROTATE
+                        }
+                        else if (Communication)
+                        {
+                            m.TogglePanels();
+                        }
+                    }
+                    else if (hitObject.collider.gameObject.TryGetComponent(out PinManager pin))
+                    {
+                        if (!(Moving || Rotation || Communication))
+                        {
+                            pin.ClickOnPin();
+                        }
                     }
                 }
             }
@@ -93,8 +114,11 @@ public class ProgrammManager : MonoBehaviour
 
                 if (Rotation)
                 {
-                    YRotation = Quaternion.Euler(0f, -touch.deltaPosition.x * 0.1f, 0f);
-                    selectedObject.transform.rotation = YRotation * selectedObject.transform.rotation;
+                    const float rotationSpeed = 0.1f;
+                    // оси вращения (x, y, z) - вращение вокруг оси, то есть Y вращение = вращение вокруг Y оси = вдоль X оси.
+                    // первый раз меня запутало
+                    var XYRotation = Quaternion.Euler(touch.deltaPosition.y * rotationSpeed, -touch.deltaPosition.x * rotationSpeed, 0f);
+                    selectedObject.transform.rotation = XYRotation * selectedObject.transform.rotation;
                 }
             }
 
@@ -146,7 +170,7 @@ public class ProgrammManager : MonoBehaviour
 
     //     if (Physics.Raycast(ray, out RaycastHit hitObject))
     //     {
-           
+
     //         var gameObj = hitObject.collider.gameObject;
 
     //         Debuger.LogFormat("UI clicked {0}", gameObj.name);

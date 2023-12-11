@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Singleton
+
 public class SceneSwitcher : MonoBehaviour
 {
     private const string StartSceneName = "StartScene";
@@ -24,6 +24,10 @@ public class SceneSwitcher : MonoBehaviour
     public void GotoStartScene()
     {
         SceneSingleton.LoadScene(StartSceneName, clear: true);
+    }
+
+    public void Quit() {
+        SceneSingleton.Quit();
     }
 
     void Update()

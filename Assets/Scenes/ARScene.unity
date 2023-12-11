@@ -1045,7 +1045,7 @@ MonoBehaviour:
   PlaneMarkerPrefab: {fileID: 1762854347}
   ARCamera: {fileID: 1868181782}
   AddObjectButton: {fileID: 1891377937}
-  ObjectToSpawn: {fileID: 3261397755722214435, guid: 69aec9f107f113741a457379cce571d5, type: 3}
+  ObjectToSpawn: {fileID: 7248820670654629005, guid: bbfbc651c94774f478ed39866ba88bb6, type: 3}
   ChooseObject: 0
   Moving: 0
   Rotation: 0

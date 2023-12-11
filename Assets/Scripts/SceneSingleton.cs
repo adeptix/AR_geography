@@ -27,12 +27,16 @@ public class SceneSingleton
     {
         if (Instance.sceneHistory.Count == 0)
         {
-            Application.Quit();
+            Quit();
             return;
         }
 
         var sceneName = Instance.sceneHistory.Pop();
         SceneManager.LoadScene(sceneName);
+    }
+
+    public static void Quit() {
+        Application.Quit();
     }
 
 

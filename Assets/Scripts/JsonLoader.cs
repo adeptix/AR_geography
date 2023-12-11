@@ -23,23 +23,35 @@ public class JsonLoader : MonoBehaviour
        random = new Random((uint)System.DateTime.Now.Millisecond);
     }
 
-    public QuizRaw[] GetRandomizedQuizList(int min = 3, int max = 8) {
-        if (QuizDataStorage == null || QuizDataStorage.quizRaws == null) {
+    public QuizCountry GetRandomizedQuizList(int countryID, int min = 4, int max = 8) {
+        if (QuizDataStorage == null || QuizDataStorage.quizCountry == null) {
+            return null;
+        }
+
+        var qc = QuizDataStorage.quizCountry.FirstOrDefault(qc => qc.countryID == countryID);
+        if (qc == null || qc.quizes == null) {
             return null;
         }
         
-        var length = QuizDataStorage.quizRaws.Length;
+        var length = qc.quizes.Length;
         
         min = Mathf.Min(length, min);
         max = Mathf.Min(length, max);
         
-        var res = ShuffleAndTake(QuizDataStorage.quizRaws, random.NextInt(min, max+1));
+        var chosen = ShuffleAndTake(qc.quizes, random.NextInt(min, max+1));
 
-        for (int i = 0; i < res.Length; i++) {
-            res[i].answers = ShuffleAndTake(res[i].answers);
+        for (int i = 0; i < chosen.Length; i++) {
+            chosen[i].answers = ShuffleAndTake(chosen[i].answers);
         }
 
-        return res;
+        var result = new QuizCountry
+        {
+            countryID = qc.countryID,
+            countryName = qc.countryName,
+            quizes = chosen,
+        }; // copy of quiz with changes
+
+        return result;
     }
 
     private T[] ShuffleAndTake<T>(T[] array, int takeCount = 0) {
@@ -52,12 +64,12 @@ public class JsonLoader : MonoBehaviour
         return shuffled.Take(takeCount).ToArray();
     }
 
-    public InfoRaw GetInfoByID(int id) {
+    public Info GetInfoByID(int countryID) {
         if (InfoDataStorage == null || InfoDataStorage.infoRaws == null) {
             return null;
         }
 
-        return InfoDataStorage.infoRaws.FirstOrDefault(inf => inf.id == id);
+        return InfoDataStorage.infoRaws.FirstOrDefault(inf => inf.id == countryID);
     }
 
     private void LoadQuizStorage() {

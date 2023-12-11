@@ -3,11 +3,19 @@ using UnityEngine;
 // QUIZ MODEL
 [System.Serializable]
 public class QuizData {
-    public QuizRaw[] quizRaws; 
-} 
+    public QuizCountry[] quizCountry; 
+}
 
 [System.Serializable]
-public class QuizRaw {
+public class QuizCountry {
+    public int countryID;
+    public string countryName;
+
+    public Quiz[] quizes;
+}
+
+[System.Serializable]
+public class Quiz {
     public int id;
     public string name;
     public string quizType;
@@ -15,6 +23,7 @@ public class QuizRaw {
     public Answer[] answers;
     public string[] additionalData;
 }
+
 
 [System.Serializable]
 public class Answer {
@@ -29,12 +38,12 @@ public class Answer {
 // INFO MODEL
 [System.Serializable]
 public class InfoData {
-    public InfoRaw[] infoRaws; 
+    public Info[] infoRaws; 
 }
 
 [System.Serializable]
-public class InfoRaw {
-    public int id;
+public class Info {
+    public int id;  // country_id
     public string name;
     public string population;
     public string text;
