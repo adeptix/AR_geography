@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class QuizManager : MonoBehaviour
 {
-    private JsonLoader jsonLoaderScript;
-
     [SerializeField] private TMP_Text countryText;
 
     [SerializeField] private GameObject startPanel;
@@ -24,7 +22,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private TMP_Text resultText;
     [SerializeField] private Button restartButton;
 
-
+    private ResourcesLoader _resourcesLoaderScript;
 
     private int countryID;
     private QuizCountry quizCountry;
@@ -36,7 +34,7 @@ public class QuizManager : MonoBehaviour
 
     void Start()
     {
-        jsonLoaderScript = FindObjectOfType<JsonLoader>();
+        _resourcesLoaderScript = FindObjectOfType<ResourcesLoader>();
 
         startButton.onClick.AddListener(StartQuizAction);
         restartButton.onClick.AddListener(StartQuizAction);
@@ -54,7 +52,7 @@ public class QuizManager : MonoBehaviour
         questionPanel.SetActive(false);
         resultPanel.SetActive(false);
 
-        var info = jsonLoaderScript.GetInfoByID(countryID);
+        var info = _resourcesLoaderScript.GetInfoByID(countryID);
         countryText.text = "Страна: " + info.name;
     }
 
@@ -65,7 +63,7 @@ public class QuizManager : MonoBehaviour
 
     private void StartQuizAction()
     {
-        quizCountry = jsonLoaderScript.GetRandomizedQuizList(countryID);
+        quizCountry = _resourcesLoaderScript.GetRandomizedQuizList(countryID);
         count = -1;
         correctCount = 0;
 

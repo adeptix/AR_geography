@@ -47,9 +47,7 @@ public class Info {
     public string name;
     public string population;
     public string text;
-
-    public string videoName;
-    public string flagName;
-    public string anthemName;
+    
     public string[] images;
+    public string[] videos;
 }
