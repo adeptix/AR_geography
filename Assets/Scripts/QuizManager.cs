@@ -16,6 +16,7 @@ public class QuizManager : MonoBehaviour
     [SerializeField] private Button cancelButton; // cancel running test
     [SerializeField] private TMP_Text counterText;
     [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private Image quizImage;
     [SerializeField] private Button[] answerButtons;
 
     [SerializeField] private GameObject resultPanel;
@@ -26,7 +27,6 @@ public class QuizManager : MonoBehaviour
 
     private int countryID;
     private QuizCountry quizCountry;
-
 
 
     private int count;
@@ -91,13 +91,20 @@ public class QuizManager : MonoBehaviour
 
         LayoutRebuilder.ForceRebuildLayoutImmediate(descriptionText.transform as RectTransform);
 
-        HideElemets();
+        HideElements();
 
         if (oneQuiz.quizType == "text")
         {
             RenderTextQuestion(oneQuiz);
             return;
         }
+
+        if (oneQuiz.quizType == "image")
+        {
+            RenderImageQuestion(oneQuiz);
+            return;
+        }
+
         //todo: add more types
     }
 
@@ -121,8 +128,37 @@ public class QuizManager : MonoBehaviour
         }
     }
 
-    private void HideElemets()
+    private void RenderImageQuestion(Quiz oneQuiz)
     {
+        var sprites = _resourcesLoaderScript.GetQuizImages(oneQuiz.additional);
+        if (sprites.Count > 0)
+        {
+            quizImage.sprite = sprites[0];
+            quizImage.gameObject.SetActive(true);
+        }
+
+        for (int i = 0; i < oneQuiz.answers.Length; i++)
+        {
+            if (i > answerButtons.Length - 1)
+            {
+                break;
+            }
+
+            answerButtons[i].onClick.RemoveAllListeners();
+
+            var answerCopy = oneQuiz.answers[i];
+
+            answerButtons[i].onClick.AddListener(() => { AnswerClicked(answerCopy); });
+            answerButtons[i].GetComponentInChildren<Text>().text = oneQuiz.answers[i].text;
+
+            answerButtons[i].gameObject.SetActive(true);
+        }
+    }
+
+    private void HideElements()
+    {
+        quizImage.gameObject.SetActive(false);
+        
         foreach (var b in answerButtons)
         {
             b.gameObject.SetActive(false);
@@ -137,6 +173,7 @@ public class QuizManager : MonoBehaviour
         {
             correctCount++;
         }
+
         //todo: right/wrong click animation should be here
         NextQuestion();
     }

@@ -130,4 +130,21 @@ public class ResourcesLoader : MonoBehaviour
 
         return list;
     }
+
+    public List<Sprite> GetQuizImages(string[] images)
+    {
+        if (images == null)
+        {
+            return null;
+        }
+
+        List<Sprite> list = new List<Sprite>();
+        
+        foreach (var imageName in images)
+        {
+            list.Add(Resources.Load<Sprite>(IMAGES_QUIZ + imageName));
+        }
+
+        return list;
+    }
 }

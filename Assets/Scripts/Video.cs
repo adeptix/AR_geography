@@ -25,10 +25,8 @@ public class Video : MonoBehaviour
     {
         playButton.gameObject.SetActive(true);
         isPlaying = false;
-        
-        texture = new RenderTexture(1280, 720, 16);
-        player.targetTexture = texture;
-        gameObject.GetComponent<RawImage>().texture = texture;
+
+        StartCoroutine(CreatePreview());
     }
 
     public void ClickPlayAction()
@@ -49,6 +47,26 @@ public class Video : MonoBehaviour
             insideImage.sprite = pauseSprite;
             insideImage.color = Color.black;
         }
+    }
+
+    private IEnumerator CreatePreview()
+    {
+        texture = new RenderTexture(1280, 720, 16);
+        player.targetTexture = texture;
+        gameObject.GetComponent<RawImage>().texture = texture;
+        
+        player.Prepare();
+
+        while (!player.isPrepared)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        player.time = 0;
+        player.Play();
+        yield return new WaitForEndOfFrame();
+        
+        player.Pause();
     }
 
     private void ChangeTransparent(Image image, float a)

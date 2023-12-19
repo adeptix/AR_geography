@@ -21,7 +21,7 @@ public class Quiz {
     public string quizType;
     public string text;
     public Answer[] answers;
-    public string[] additionalData;
+    public string[] additional;
 }
 
 

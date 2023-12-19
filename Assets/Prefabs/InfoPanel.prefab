@@ -1945,6 +1945,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3000915720818759486}
     m_Modifications:
+    - target: {fileID: 2078414619141004761, guid: 897d0bfe432ee463b90ce64d7c2ff639, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2515138270335142775, guid: 897d0bfe432ee463b90ce64d7c2ff639, type: 3}
       propertyPath: m_Name
       value: VideoPanel
